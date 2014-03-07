@@ -1,0 +1,53 @@
+#todo-app {
+    margin: 1em;
+    text-align: center;
+}
+.done-true {
+    text-decoration: line-through;
+    color: grey;
+}
+li.todo-item {
+    list-style: none;
+    border-bottom: 1px dotted #cfcfcf;
+    font-size: 20px;
+    padding: 6px;
+    position: relative;
+}
+.taskForm {
+    display:inline;
+}
+#newTask {
+    display: block;
+    font-family: Helvetica, sans-serif;
+    font-size: 2em;
+    line-height: normal;
+    margin: 0.5em auto 0;
+    padding: 6px;
+    width: 50%;
+}
+.todo-label {
+    color: #E6CFE6;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+}
+.todo-label strong {
+    color: #C45CC4;
+    font-size: 2em;
+    font-weight: bold;
+}
+#todo-list, #stats {
+    list-style: none;
+    padding: 0;
+    margin: 1em auto;
+    text-align: left;
+    width: 50%;
+}
+
+#stats {
+	color: #777;
+}
+
+#archive {
+	float: right;
+}
