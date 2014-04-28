@@ -1,36 +1,47 @@
 <!doctype html>
-<html lang="en" ng-app="todoApp">
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="todoApp">
 
 <head>
     <meta charset="UTF-8">
+    <!-- Fucking IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="placeholders.min.js"></script>
+    <![endif]-->
     <title>Todo</title>
     <link rel="stylesheet" href="style.css">
-    <script src="angular.min.js"></script>
-    <script src="todo.js"></script>
 </head>
 
 <body ng-controller="todoController">
     <div id="todo-app">
-        <label class="todo-label">What do you want <strong>todo</strong> today?</label>
+        <label class="todo-label">What do you want
+            <strong>todo</strong>today?</label>
         <input type="text" id="newTask" ng-model="todoTask" ng-enter="todoAdd()" placeholder="Купить молока" required>
-        <ul id="todo-list">
-            <li ng-repeat="todo in todos | filter:search track by $id($index)" class="todo-item">
-            	<span class="dateTask">{{jsParseDate(todo.text).date.toLocaleString()}}</span>
-                <a href="#" ng-click="removeTask(todo)"></a>
-                <input type="checkbox" ng-model="todo.done" ng-change="saveState()">
-                <span ng-hide="editing" ng-click="editing = true" class="done-{{todo.done}}">{{todo.text}}</span>
-
-                <input type="text" ng-show="editing" ng-model="todo.text" ng-enter="saveState(); editing = false" required>
-            </li>
-        </ul>
+        <table id="todo-list">
+            <tr ng-repeat="todo in todos | filter:search track by $id($index)" class="todo-item">
+                <td class="dateTask">{{todo.date}}&nbsp;
+                    <a href="#" ng-click="removeTask(todo)"></a>
+                </td>
+                <td>
+                    <input type="checkbox" ng-model="todo.done" ng-change="saveState()">
+                </td>
+                <td>
+                    <span ng-hide="editing" ng-click="editing = true" class="done-{{todo.done}} taskRow">{{todo.text}}</span>
+                    <input type="text" ng-show="editing" ng-model="todo.text" ng-enter="saveTodo(todo); editing = false" required>
+                </td>
+            </tr>
+        </table>
 
         <div id="stats" ng-show="todos.length">
             <p>Осталось: {{number()}} из {{todos.length}}</p>
             <input ng-model="search" placeholder="Фильтр"><a href="#" ng-click="archiveTasks()" id="archive">Архивировать {{todos.length - number()}}</a>
-            <p></b></p>
-        <hr>
+            <hr>
         </div>
     </div>
+
+    <script src="angular.min.js"></script>
+    <script src="todo.js"></script>
 </body>
 
 </html>

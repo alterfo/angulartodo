@@ -1,10 +1,26 @@
-var todoApp = angular.module('todoApp', [])
+var todoApp = angular.module('todoApp', []);
 
 todoApp.controller('todoController',
     function($scope) {
 
         if (document.cookie.indexOf("todos") == -1) {
-            $scope.todos = []
+            $scope.todos = [{
+                "text": "eHealth avaliability report ждет до пятницы 12:00",
+                "done": false,
+                "date": "4/4/2014 12:00:00 PM"
+            }, {
+                "text": "через неделю достать кота из стиралки",
+                "done": false,
+                "date": "4/10/2014 6:29:00 PM"
+            }, {
+                "text": "Время определяется автоматически",
+                "done": false,
+                "date": ""
+            }, {
+                "text": "Можно кликнуть на запись чтобы ее отредактировать",
+                "done": false,
+                "date": ""
+            }];
         } else {
             $scope.todos = JSON.parse(getCookies("todos"));
         }
@@ -12,9 +28,15 @@ todoApp.controller('todoController',
         $scope.todoAdd = function() {
             $scope.todos.push({
                 'text': $scope.todoTask,
-                'done': false
+                'done': false,
+                'date': $scope.jsParseDate($scope.todoTask).date.toLocaleString()
             });
             $scope.todoTask = '';
+            $scope.saveState();
+        }
+
+        $scope.saveTodo = function(todo) {
+            todo.date = $scope.jsParseDate(todo.text).date.toLocaleString();
             $scope.saveState();
         }
 
@@ -361,7 +383,7 @@ todoApp.controller('todoController',
 
     });
 
-angular.module('todoApp').directive('ngEnter', function() {
+todoApp.directive('ngEnter', function() {
     return function(scope, element, attrs) {
         element.bind("keydown keypress", function(event) {
             if (event.which === 13) {

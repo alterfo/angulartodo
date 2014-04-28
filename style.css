@@ -2,6 +2,13 @@
     margin: 1em;
     text-align: center;
 }
+
+.dateTask {
+    width: 200px;
+    float: left;
+}
+
+
 .done-true {
     text-decoration: line-through;
     color: grey;
